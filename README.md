@@ -30,16 +30,16 @@ Sample output
 -------------
 
     $ ./dpkg-licenses
-    St  Name             Version               Arch   Description       Licenses
-    --  ----             -------               ----   -----------       --------
-    ii  accountsservice  0.6.35-0ubuntu7.2     amd64  query and manipu  GPL-2+ GPL-3+
-    ii  acl              2.2.52-1              amd64  Access control l  GPL LGPL-2.1
-    ii  acpi-support     0.142                 amd64  scripts for hand  GPL-2+
-    ii  acpid            1:2.0.21-1ubuntu2     amd64  Advanced Configu  GPL-2
-    ii  adduser          3.113+nmu3ubuntu3     all    add and remove u  GPL-2
-    ii  alsa-base        1.0.25+dfsg-0ubuntu4  all    ALSA driver conf  GPL-2
-    ii  alsa-utils       1.0.27.2-1ubuntu2     amd64  Utilities for co  GPL-2
-    ii  anacron          2.3-20ubuntu1         amd64  cron-like progra  GPL-2
+    St  Name             Version               Arch   Description                                   Licenses
+    --  ----             -------               ----   -----------                                   --------
+    ii  accountsservice  0.6.35-0ubuntu7.2     amd64  query and manipulate user account informatio  GPL-2+ GPL-3+
+    ii  acl              2.2.52-1              amd64  Access control list utilities                 GPL LGPL-2.1
+    ii  acpi-support     0.142                 amd64  scripts for handling many ACPI events         GPL-2+
+    ii  acpid            1:2.0.21-1ubuntu2     amd64  Advanced Configuration and Power Interface e  GPL-2
+    ii  adduser          3.113+nmu3ubuntu3     all    add and remove users and groups               GPL-2
+    ii  alsa-base        1.0.25+dfsg-0ubuntu4  all    ALSA driver configuration files               GPL-2
+    ii  alsa-utils       1.0.27.2-1ubuntu2     amd64  Utilities for configuring and using ALSA      GPL-2
+    ii  anacron          2.3-20ubuntu1         amd64  cron-like program that doesn't go by time     GPL-2
 
 The output quality on an average workspace Ubuntu installation looks like this
 
@@ -54,11 +54,11 @@ Interpretation:
 
 However, there is still a lot of garbage:
 
-    ii  autoconf                       2.69-6                         all    automatic configure script builder                           GFDL-1.3+ GPL-2+ GPL-2+ with Autoconf exception GPL-3+ GPL-3+ with Autoconf exception GPL-3+ with Texinfo exception MIT-X-Consortium no-modification other permissive permissive-long-disclaimer permissive-short-disclaimer permissive-without-disclaimer permissive-without-notices-or-disclaimer
-    ii  bc                             1.06.95-8ubuntu1               amd64  GNU bc arbitrary precision calculator language               GPL-2.0+ GPL-2.0+ with Texinfo exception permissive X11 and public-domain
-    ii  cron                           3.0pl1-124ubuntu2              amd64  process scheduling daemon                                    Artistic GPL-2+ ISC Paul Vixie's license Paul Vixie's license and GPL-2+ and ISC
-    ii  fonts-opensymbol               2:102.6+LibO4.2.8-0ubuntu3     all    OpenSymbol TrueType font                                     Apache-2.0 BSD-3-clause BSD-4-clause CDDL-1.0 CDDL-1.0 | GPPL-2 GPL GPL-1 GPL-2 GPL-2+ GPL-2 | LGPL-2.1 | MPL-1.1 LGPL LGPL-2+ LGPL2+ LGPL-2.1 LGPL-2 | Apache-2.0 LGPL-3 LGPL | Apache-2.0 MIT MIT/X MPL-1.1 MPL-1.1 | GPL-2 | LGPL-2 MPL-1.1 | GPL-3+ | LGPL-3+ MPL-1.1 | LGPL-2.1 MPL 1.1 | LGPL-2+ | GPL-2+ MPL-2.0 other PSF-2 public-domain W3C Zlib
-    ii  ghostscript                    9.10~dfsg-0ubuntu10.4          amd64  interpreter for the PostScript language and for PDF          AFPL AFPL~AFPL AGPL-3+ Apache-2.0 BSD-3-Clause BSD-3-Clause~Adobe Expat Expat~Ghostgum Expat~SunSoft Expat~SunSoft with SunSoft exception GAP~configure GPL GPL-2+ GPL-2+ or AFPL~AFPL GPL-2+ with Autoconf exception GPL-2+ with Libtool exception GPL-2+~you GPL-2+~you or AFPL GPL-2+~you or AFPL~AFPL GPL-3+ GPL-3+~Artifex GPL~CUPS GPL~LIPS GPL~URW GPL~URW with font exception icclib LGPL-2.1+ LGPL-2.1+ and LGPL-2.1+~program-in-file LGPL-2.1~pcl3 LGPL-2.1+~program-in-file NTP~Lucent NTP~Open NTP~WSU other PD Unicode UNKNOWN ZLIB
+    ii  autoconf          2.69-6                      all    automatic configure script builder                   GFDL-1.3+ GPL-2+ GPL-2+ with Autoconf exception GPL-3+ GPL-3+ with Autoconf exception GPL-3+ with Texinfo exception MIT-X-Consortium no-modification other permissive permissive-long-disclaimer permissive-short-disclaimer permissive-without-disclaimer permissive-without-notices-or-disclaimer
+    ii  bc                1.06.95-8ubuntu1            amd64  GNU bc arbitrary precision calculator language       GPL-2.0+ GPL-2.0+ with Texinfo exception permissive X11 and public-domain
+    ii  cron              3.0pl1-124ubuntu2           amd64  process scheduling daemon                            Artistic GPL-2+ ISC Paul Vixie's license Paul Vixie's license and GPL-2+ and ISC
+    ii  fonts-opensymbol  2:102.6+LibO4.2.8-0ubuntu3  all    OpenSymbol TrueType font                             Apache-2.0 BSD-3-clause BSD-4-clause CDDL-1.0 CDDL-1.0 | GPPL-2 GPL GPL-1 GPL-2 GPL-2+ GPL-2 | LGPL-2.1 | MPL-1.1 LGPL LGPL-2+ LGPL2+ LGPL-2.1 LGPL-2 | Apache-2.0 LGPL-3 LGPL | Apache-2.0 MIT MIT/X MPL-1.1 MPL-1.1 | GPL-2 | LGPL-2 MPL-1.1 | GPL-3+ | LGPL-3+ MPL-1.1 | LGPL-2.1 MPL 1.1 | LGPL-2+ | GPL-2+ MPL-2.0 other PSF-2 public-domain W3C Zlib
+    ii  ghostscript       9.10~dfsg-0ubuntu10.4       amd64  interpreter for the PostScript language and for PDF  AFPL AFPL~AFPL AGPL-3+ Apache-2.0 BSD-3-Clause BSD-3-Clause~Adobe Expat Expat~Ghostgum Expat~SunSoft Expat~SunSoft with SunSoft exception GAP~configure GPL GPL-2+ GPL-2+ or AFPL~AFPL GPL-2+ with Autoconf exception GPL-2+ with Libtool exception GPL-2+~you GPL-2+~you or AFPL GPL-2+~you or AFPL~AFPL GPL-3+ GPL-3+~Artifex GPL~CUPS GPL~LIPS GPL~URW GPL~URW with font exception icclib LGPL-2.1+ LGPL-2.1+ and LGPL-2.1+~program-in-file LGPL-2.1~pcl3 LGPL-2.1+~program-in-file NTP~Lucent NTP~Open NTP~WSU other PD Unicode UNKNOWN ZLIB
 
 Copyright
 ---------
