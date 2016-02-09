@@ -24,6 +24,8 @@ multiple fallbacks for the case that it isn't well-formatted. You can
 probably imagine how hard it is to read a license from a unformatted
 plain-text file.
 
+Feel free to try this tool. Any suggestions are welcome.
+
 Sample output
 -------------
 
