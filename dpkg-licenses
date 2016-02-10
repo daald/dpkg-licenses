@@ -46,7 +46,7 @@ COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch 
     [ $? -eq 0 ] || exit 1
     [ -n "$license" ] || continue
     # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/ $//')
+    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
     [ -z "$license" ] || break
   done
   [ -n "$license" ] || license='unknown'
