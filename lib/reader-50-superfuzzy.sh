@@ -34,19 +34,13 @@ else
   exit 0  # no copyright file found
 fi
 
-result=$(grep -w -o -i \
-    -e '4-clause BSD licenses' \
-    -e 'Boost Software License' \
-    -e '"BSD" LICENCE' \
-    -e 'BSD LICENCE' \
-    -e 'CCPL' \
-    -e 'Creative Commons' \
-    -e 'MIT license' \
-    -e 'Mozilla Public License' \
-    -e 'Public Domain' \
-    -e BSD-2 \
-    -e BSD-4 \
-    "$copyrightfile" | sort -u)
+result=$(grep -Ewoi \
+    -e '(4-?clause )?"?BSD"? licen[sc]es?' \
+    -e '(Boost Software|mozilla (public)?|MIT) Licen[sc]es?' \
+    -e '(CCPL|BSD|L?GPL)-[0-9a-z.+-]+( Licenses?)?' \
+    -e 'Creative Commons( Licenses?)?' \
+    -e 'Public Domain( Licenses?)?' \
+    "$copyrightfile" | sed -r -e 's/[Ll]icence/License/g' | sort -u)
 if [ -n "$result" ]; then
   echo "$result"
 fi

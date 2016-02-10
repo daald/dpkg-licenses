@@ -37,20 +37,20 @@ format=$(awk '/^Format:/{print}/^$/{exit}' "$copyrightfile")
 [ -n "$format" ] || exit 0
 
 case "$format" in
-  *'http://www.debian.org/doc/packaging-manuals/copyright-format/1.0'*)
-    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+  *'://www.debian.org/doc/packaging-manuals/copyright-format/1.0'*)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   *'http://dep.debian.net/deps/dep5'*)
-    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   *'http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?'*)
-    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   *'http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?'*)
-    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   "Format:")  # seen in /usr/share/doc/libpcsclite1/copyright
-    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   *)
     echo "WARNING: Unknown format of $copyrightfile: $format" >&2
@@ -58,7 +58,7 @@ case "$format" in
 esac
 
 if [ -n "$result" ]; then
-  echo "$result"
+  echo "$result" | sed -r -e 's/ and /\n/g' -e 's/^ +//' -e 's/ +$//' -e 's/icence/icense/g' | sort -u
 fi
 
 exit 0

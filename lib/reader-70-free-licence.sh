@@ -20,7 +20,7 @@
 #    along with dpkg-licenses.  If not, see <http://www.gnu.org/licenses/>.
 
 # Description:
-#   fuzzy search for known licence names
+#   fuzzy search for "License:" string in non-well-formatted files
 
 set -e
 
@@ -34,9 +34,9 @@ else
   exit 0  # no copyright file found
 fi
 
-result=$(grep -e '^License:' -e '^Licence:' "$copyrightfile" | cut -d':' -f2- | sort -u)
+result=$(grep -e '^License:' -e '^Licence:' "$copyrightfile" | cut -d':' -f2-)
 if [ -n "$result" ]; then
-  echo "$result"
+  echo "$result" | sed -r -e 's/ and /\n/g' -e 's/^ +//' -e 's/ +$//' -e 's/icence/icense/g' | sort -u
 fi
 
 exit 0

@@ -47,10 +47,10 @@ The output quality on an average workspace Ubuntu installation looks like this
     $ cat output.txt | cut -c135- | wc -l
     2230
     $ cat output.txt | cut -c135- | grep unknown | wc -l
-    252
+    228
 
 Interpretation:
- 2230 installed packages, success rate of tool is 1−(252/2230) = 88%
+ 2230 installed packages, success rate of tool is 1−(228/2230) = 90%
 
 However, there is still a lot of garbage:
 
