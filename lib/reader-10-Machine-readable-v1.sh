@@ -49,6 +49,9 @@ case "$format" in
   *'http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
+  *'http://anonscm.debian.org/loggerhead/dep/dep5/trunk/annotate/179/dep5/copyright-format.xml'*)
+    result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
+    ;;
   "Format:")  # seen in /usr/share/doc/libpcsclite1/copyright
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
