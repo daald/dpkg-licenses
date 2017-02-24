@@ -42,12 +42,12 @@ COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch 
   license=
   for method in "$SCRIPTLIB"/reader*; do
     [ -f "$method" ] || continue
-    license=$("$method" "$package")
+    license1=$("$method" "$package")
     [ $? -eq 0 ] || exit 1
-    [ -n "$license" ] || continue
+    [ -n "$license1" ] || continue
     # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
-    [ -z "$license" ] || break
+    license1=$(echo "$license1" | tr '\n' ',' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//' -e 's/,/, /g' -e 's/(, )+/, /g' -e 's/, $//')
+    license=$(echo $license','$license1)
   done
   [ -n "$license" ] || license='unknown'
 
