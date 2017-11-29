@@ -25,14 +25,7 @@
 set -e
 
 package="$1"
-copyrightfile=
-if [ -f "/usr/share/doc/$package/copyright" ]; then
-  copyrightfile="/usr/share/doc/$package/copyright"
-elif [ -f "/usr/share/doc/${package%:*}/copyright" ]; then
-  copyrightfile="/usr/share/doc/${package%:*}/copyright"
-else
-  exit 0  # no copyright file found
-fi
+copyrightfile="$2"
 
 result=$(grep -oP '/usr/share/common-licenses/[0-9A-Za-z_.+-]+[0-9A-Za-z+]' "$copyrightfile" | cut -d/ -f5- | sort -u)
 if [ -n "$result" ]; then
