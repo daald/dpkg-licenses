@@ -24,14 +24,7 @@
 #   http://dep.debian.net/deps/dep5/
 
 package="$1"
-copyrightfile=
-if [ -f "/usr/share/doc/$package/copyright" ]; then
-  copyrightfile="/usr/share/doc/$package/copyright"
-elif [ -f "/usr/share/doc/${package%:*}/copyright" ]; then
-  copyrightfile="/usr/share/doc/${package%:*}/copyright"
-else
-  exit 0  # no copyright file found
-fi
+copyrightfile="$2"
 
 format=$(awk '/^Format:/{print}/^$/{exit}' "$copyrightfile")
 [ -n "$format" ] || exit 0
