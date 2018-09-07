@@ -26,19 +26,24 @@ case "$1" in
     cat >&2 <<.e
 Lists all installed packages (dpkg -l similar format) and prints their licenses
 
-Usage: $0
+Usage: $0 [PACKAGE_TO_CHECK]
+
+If PACKAGE_TO_CHECK is not given, will check all packages installed
 .e
     exit 1
+    ;;
 esac
 
 SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
 test -d "$SCRIPTLIB"
 
+PACKAGES_TO_CHECK="$1"
+
 format='%-2s  %-30s %-30s %-6s %-60s %s\n'
 printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
 printf "$format" "--" "----" "-------" "----" "-----------" "--------"
 
-COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
+COLUMNS=2000 dpkg -l "${PACKAGES_TO_CHECK}" | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
   license=
   for method in "$SCRIPTLIB"/reader*; do
     [ -f "$method" ] || continue

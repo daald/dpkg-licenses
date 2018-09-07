@@ -24,16 +24,26 @@
 #   http://dep.debian.net/deps/dep5/
 
 package="$1"
-copyrightfile=
-if [ -f "/usr/share/doc/$package/copyright" ]; then
+copyrightfile="$2"
+if [ -n "${copyrightfile}" ]; then
+    if [ ! -f "${copyrightfile}" ]; then
+        echo "ERROR: Specified copy right file not found: '${copyrightfile}'" >&2
+        exit 1  
+    fi
+elif [ -f "/usr/share/doc/$package/copyright" ]; then
   copyrightfile="/usr/share/doc/$package/copyright"
 elif [ -f "/usr/share/doc/${package%:*}/copyright" ]; then
   copyrightfile="/usr/share/doc/${package%:*}/copyright"
 else
+  echo "WARNING: No Copy right machine readable file for  $package" >&2
   exit 0  # no copyright file found
 fi
 
 format=$(awk '/^Format:/{print}/^$/{exit}' "$copyrightfile")
+if [ -z "$format" ]; then
+    # alternate form seen in many packages (but not per spec)
+    format=$(awk '/^Format-Specification:/{print}/^$/{exit}' "$copyrightfile")
+fi
 [ -n "$format" ] || exit 0
 
 case "$format" in
@@ -57,7 +67,7 @@ case "$format" in
     ;;
   *)
     echo "WARNING: Unknown format of $copyrightfile: $format" >&2
-    exit 1  # unknown format
+    exit 0  # unknown format
 esac
 
 if [ -n "$result" ]; then

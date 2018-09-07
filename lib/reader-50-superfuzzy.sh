@@ -25,8 +25,13 @@
 set -e
 
 package="$1"
-copyrightfile=
-if [ -f "/usr/share/doc/$package/copyright" ]; then
+copyrightfile="$2"
+if [ -n "${copyrightfile}" ]; then
+    if [ ! -f "${copyrightfile}" ]; then
+        echo "ERROR: Specified copy right file not found: '${copyrightfile}'" >&2
+        exit 1  
+    fi
+elif [ -f "/usr/share/doc/$package/copyright" ]; then
   copyrightfile="/usr/share/doc/$package/copyright"
 elif [ -f "/usr/share/doc/${package%:*}/copyright" ]; then
   copyrightfile="/usr/share/doc/${package%:*}/copyright"
