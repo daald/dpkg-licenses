@@ -21,6 +21,8 @@
 
 set -e
 
+CSV=0
+
 case "$1" in
   --help|-h)
     cat >&2 <<.e
@@ -29,14 +31,23 @@ Lists all installed packages (dpkg -l similar format) and prints their licenses
 Usage: $0
 .e
     exit 1
+    ;;
+  -c)
+    CSV=1
+    ;;
 esac
 
 SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
 test -d "$SCRIPTLIB"
 
-format='%-2s  %-30s %-30s %-6s %-60s %s\n'
-printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
-printf "$format" "--" "----" "-------" "----" "-----------" "--------"
+if [[ $CSV -eq 1 ]]
+then 
+  printf "\"St\",\"Name\",\"Version\",\"Arch\",\"Description\",\"Licenses\"\n"
+else 
+  format='%-2s  %-30s %-30s %-6s %-60s %s\n'
+  printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
+  printf "$format" "--" "----" "-------" "----" "-----------" "--------"
+fi
 
 COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
   license=
@@ -51,6 +62,11 @@ COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch 
   done
   [ -n "$license" ] || license='unknown'
 
-  printf "$format" "$pState" "${package:0:30}" "${pVer:0:30}" "${pArch:0:6}" "${pDesc:0:60}" "$license"
+  if [[ $CSV -eq 1 ]]
+  then
+    printf "\"$pState\",\"$package\",\"$pVer\",\"$pArch\",\"$pDesc\",\"$license\"\n"
+  else
+    printf "$format" "$pState" "${package:0:30}" "${pVer:0:30}" "${pArch:0:6}" "${pDesc:0:60}" "$license"
+  fi 
 done
 
