@@ -35,22 +35,22 @@ SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
 test -d "$SCRIPTLIB"
 
 format='%-2s  %-30s %-30s %-6s %-60s %s\n'
-printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
-printf "$format" "--" "----" "-------" "----" "-----------" "--------"
+#printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
+#printf "$format" "--" "----" "-------" "----" "-----------" "--------"
 
 COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
   license=
   for method in "$SCRIPTLIB"/reader*; do
     [ -f "$method" ] || continue
-    license=$("$method" "$package")
+    license1=$("$method" "$package")
     [ $? -eq 0 ] || exit 1
-    [ -n "$license" ] || continue
+    [ -n "$license1" ] || continue
     # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
-    [ -z "$license" ] || break
+    license1=$(echo "$license1" | tr '\n' ',' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//' -e 's/,/, /g' -e 's/(, )+/, /g' -e 's/, $//')
+    license=$(echo $license','$license1)
   done
   [ -n "$license" ] || license='unknown'
 
-  printf "$format" "$pState" "${package:0:30}" "${pVer:0:30}" "${pArch:0:6}" "${pDesc:0:60}" "$license"
+  printf "$package\t$pVer\t$pDesc\t$license\n"
 done
 
