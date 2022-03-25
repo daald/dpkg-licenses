@@ -41,7 +41,22 @@ Sample output
     ii  alsa-utils       1.0.27.2-1ubuntu2     amd64  Utilities for configuring and using ALSA      GPL-2
     ii  anacron          2.3-20ubuntu1         amd64  cron-like program that doesn't go by time     GPL-2
 
-The output quality on an average workspace Ubuntu installation looks like this
+CSV format
+-------------
+
+To get parsable format without shortened fields, use `--csv` (`-c`) flag:
+
+    $ ./dpkg-licenses -c
+    "St","Name","Version","Arch","Description","Licenses"
+    "ii","accountsservice","0.6.35-0ubuntu7.2","amd64","query and manipulate user account information","GPL-2+ GPL-3+"
+    "ii","acl","2.2.52-1","amd64","Access control list utilities","GPL LGPL-2.1"
+    "ii","acpid","1:2.0.21-1ubuntu2","amd64","Advanced Configuration and Power Interface event daemon","GPL-2"
+    ...
+
+Output quality
+-------------
+
+The output quality on an average workspace Ubuntu installation looks like this:
 
     $ ./dpkg-licenses >output.txt 2>errors.txt
     $ cat output.txt | cut -c135- | wc -l
