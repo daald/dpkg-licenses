@@ -60,6 +60,19 @@ To run dpkg-licenses on an alternative root directory (for example, an unpacked 
 
     $ ./dpkg-licenses --root='/path/to/alternative/root/'
 
+Alternate separator
+-------------------
+
+By default, license names in the output are separated with a space character. If this is not desirable, you can change the separator character:
+
+    $ ./dpkg-licenses -c --separator='|'
+    # or
+    $ ./dpkg-licenses -c -s='|'
+    "St","Name","Version","Arch","Description","Licenses"
+    "ii","2to3","3.8.2-0ubuntu2","all","2to3 binary using python3","GPL-compatible|GPL-compatible licenses"
+
+Note that double quotes (") are not appropriate for use as separators and will cause CSV output to format incorrectly.
+
 Output quality
 -------------
 

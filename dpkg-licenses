@@ -23,6 +23,7 @@ set -e
 
 CSV=0
 DPKG_LICENSES_ROOTDIR='/'
+SEPARATOR=' '
 
 for i in "$@"
 do
@@ -34,6 +35,7 @@ Usage: $0 [-c]
 Options:
     -c, --csv             use comma separated values (CSV) output format
     -h, --help            print this message
+    -s, --separator       Separator of license names in output (default ' ')
     --root=/path          Specify an alternative directory to treat as root
 .e
     exit 1
@@ -43,6 +45,9 @@ Options:
     ;;
   --root=*)
     DPKG_LICENSES_ROOTDIR="${i#*=}"
+    ;;
+  --separator=*|-s=*)
+    SEPARATOR="${i#*=}"
     ;;
 esac
 done
@@ -69,8 +74,8 @@ COLUMNS=2000 dpkg --root="$DPKG_LICENSES_ROOTDIR" -l | grep '^.[iufhwt]' | while
     license=$("$method" "$package")
     [ $? -eq 0 ] || exit 1
     [ -n "$license" ] || continue
-    # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
+    # remove line breaks and errant separators (for example, at the start and end of a license line)
+    license=$(echo "$license" | tr '\n' "$SEPARATOR" | sed -r -e "s/\\$SEPARATOR+/\\$SEPARATOR/g" -e "s/^\\$SEPARATOR+//" -e "s/\\$SEPARATOR+$//")
     [ -z "$license" ] || break
   done
   [ -n "$license" ] || license='unknown'
