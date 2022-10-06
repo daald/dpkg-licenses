@@ -41,8 +41,9 @@ Options:
     ;;
 esac
 
-SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
-test -d "$SCRIPTLIB"
+DPKG_LICENSES_LIB=$(dirname $(readlink -f "$0"))/lib/
+test -d "$DPKG_LICENSES_LIB"
+export DPKG_LICENSES_LIB
 
 if [[ $CSV -eq 1 ]]
 then
@@ -55,7 +56,7 @@ fi
 
 COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
   license=
-  for method in "$SCRIPTLIB"/reader*; do
+  for method in "$DPKG_LICENSES_LIB"/reader*; do
     [ -f "$method" ] || continue
     license=$("$method" "$package")
     [ $? -eq 0 ] || exit 1
