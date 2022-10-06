@@ -19,8 +19,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with dpkg-licenses.  If not, see <http://www.gnu.org/licenses/>.
 
-PACKAGE="/usr/share/doc/$package/copyright"
-PACKAGE_NOARCH="/usr/share/doc/${package%:*}/copyright"
+PACKAGE="$DPKG_LICENSES_ROOTDIR/usr/share/doc/$package/copyright"
+PACKAGE_NOARCH="$DPKG_LICENSES_ROOTDIR/usr/share/doc/${package%:*}/copyright"
 
 copyrightfile=
 if [ -f "$PACKAGE" ]; then

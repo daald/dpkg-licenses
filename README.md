@@ -53,6 +53,13 @@ To get parsable format without shortened fields, use `--csv` (`-c`) flag:
     "ii","acpid","1:2.0.21-1ubuntu2","amd64","Advanced Configuration and Power Interface event daemon","GPL-2"
     ...
 
+Alternate root
+--------------
+
+To run dpkg-licenses on an alternative root directory (for example, an unpacked tarball of a Debian installation), add the `--root=<path>` argument:
+
+    $ ./dpkg-licenses --root='/path/to/alternative/root/'
+
 Output quality
 -------------
 
