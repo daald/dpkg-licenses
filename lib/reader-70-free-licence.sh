@@ -36,7 +36,7 @@ fi
 
 result=$(grep -e '^License:' -e '^Licence:' "$copyrightfile" | cut -d':' -f2-)
 if [ -n "$result" ]; then
-  echo "$result" | sed -r -e 's/ and /\n/g' -e 's/^ +//' -e 's/ +$//' -e 's/icence/icense/g' | sort -u
+  echo "$result" | sed -r -e 's/ and /\n/g' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/icence/icense/g' | sort -u
 fi
 
 exit 0
