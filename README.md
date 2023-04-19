@@ -53,6 +53,26 @@ To get parsable format without shortened fields, use `--csv` (`-c`) flag:
     "ii","acpid","1:2.0.21-1ubuntu2","amd64","Advanced Configuration and Power Interface event daemon","GPL-2"
     ...
 
+Alternate root
+--------------
+
+To run dpkg-licenses on an alternative root directory (for example, an unpacked tarball of a Debian installation), add the `--root=<path>` argument:
+
+    $ ./dpkg-licenses --root='/path/to/alternative/root/'
+
+Alternate separator
+-------------------
+
+By default, license names in the output are separated with a space character. If this is not desirable, you can change the separator character:
+
+    $ ./dpkg-licenses -c --separator='|'
+    # or
+    $ ./dpkg-licenses -c -s='|'
+    "St","Name","Version","Arch","Description","Licenses"
+    "ii","2to3","3.8.2-0ubuntu2","all","2to3 binary using python3","GPL-compatible|GPL-compatible licenses"
+
+Note that double quotes (") are not appropriate for use as separators and will cause CSV output to format incorrectly.
+
 Output quality
 -------------
 

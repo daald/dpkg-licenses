@@ -19,24 +19,17 @@
 #    You should have received a copy of the GNU General Public License
 #    along with dpkg-licenses.  If not, see <http://www.gnu.org/licenses/>.
 
-# Description:
-#   fuzzy search for known licence names
+PACKAGE="$DPKG_LICENSES_ROOTDIR/usr/share/doc/$package/copyright"
+PACKAGE_NOARCH="$DPKG_LICENSES_ROOTDIR/usr/share/doc/${package%:*}/copyright"
 
-set -e
-
-package="$1"
-. "$DPKG_LICENSES_LIB/find_copyright_file.sh"
-
-result=$(grep -Ewoi \
-    -e '(4-?clause )?"?BSD"? licen[sc]es?' \
-    -e '(Boost Software|mozilla (public)?|MIT) Licen[sc]es?' \
-    -e '(CCPL|BSD|L?GPL)-[0-9a-z.+-]+( Licenses?)?' \
-    -e 'Creative Commons( Licenses?)?' \
-    -e 'Public Domain( Licenses?)?' \
-    "$copyrightfile" | sed -r -e 's/[Ll]icence/License/g' | sort -u)
-if [ -n "$result" ]; then
-  echo "$result"
+copyrightfile=
+if [ -f "$PACKAGE" ]; then
+  copyrightfile="$PACKAGE"
+elif [ -f "$PACKAGE_NOARCH" ]; then
+  copyrightfile="$PACKAGE_NOARCH"
+else
+  exit 0  # no copyright file found
 fi
 
-exit 0
-
+unset PACKAGE
+unset PACKAGE_NOARCH

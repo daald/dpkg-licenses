@@ -25,14 +25,7 @@
 set -e
 
 package="$1"
-copyrightfile=
-if [ -f "/usr/share/doc/$package/copyright" ]; then
-  copyrightfile="/usr/share/doc/$package/copyright"
-elif [ -f "/usr/share/doc/${package%:*}/copyright" ]; then
-  copyrightfile="/usr/share/doc/${package%:*}/copyright"
-else
-  exit 0  # no copyright file found
-fi
+. "$DPKG_LICENSES_LIB/find_copyright_file.sh"
 
 #echo "$copyrightfile" >&2
 #head -n1 "$copyrightfile" >&2

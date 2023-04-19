@@ -22,46 +22,60 @@
 set -e
 
 CSV=0
+DPKG_LICENSES_ROOTDIR='/'
+SEPARATOR=' '
 
-case "$1" in
+for i in "$@"
+do
+case "$i" in
   --help|-h)
     cat >&2 <<.e
 Lists all installed packages (dpkg -l similar format) and prints their licenses
-
 Usage: $0 [-c]
-
 Options:
-    -c, --csv    use comma separated values (CSV) output format
-    -h, --help   print this message
+    -c, --csv             use comma separated values (CSV) output format
+    -h, --help            print this message
+    -s, --separator       Separator of license names in output (default ' ')
+    --root=/path          Specify an alternative directory to treat as root
 .e
     exit 1
     ;;
   --csv|-c)
     CSV=1
     ;;
+  --root=*)
+    DPKG_LICENSES_ROOTDIR="${i#*=}"
+    ;;
+  --separator=*|-s=*)
+    SEPARATOR="${i#*=}"
+    ;;
 esac
+done
 
-SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
-test -d "$SCRIPTLIB"
+export DPKG_LICENSES_ROOTDIR
+
+DPKG_LICENSES_LIB=$(dirname $(readlink -f "$0"))/lib/
+test -d "$DPKG_LICENSES_LIB"
+export DPKG_LICENSES_LIB
 
 if [[ $CSV -eq 1 ]]
-then 
+then
   printf "\"St\",\"Name\",\"Version\",\"Arch\",\"Description\",\"Licenses\"\n"
-else 
+else
   format='%-2s  %-30s %-30s %-6s %-60s %s\n'
   printf "$format" "St" "Name" "Version" "Arch" "Description" "Licenses"
   printf "$format" "--" "----" "-------" "----" "-----------" "--------"
 fi
 
-COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
+COLUMNS=2000 dpkg --root="$DPKG_LICENSES_ROOTDIR" -l | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
   license=
-  for method in "$SCRIPTLIB"/reader*; do
+  for method in "$DPKG_LICENSES_LIB"/reader*; do
     [ -f "$method" ] || continue
     license=$("$method" "$package")
     [ $? -eq 0 ] || exit 1
     [ -n "$license" ] || continue
-    # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
+    # remove line breaks and errant separators (for example, at the start and end of a license line)
+    license=$(echo "$license" | tr '\n' "$SEPARATOR" | sed -r -e "s/\\$SEPARATOR+/\\$SEPARATOR/g" -e "s/^\\$SEPARATOR+//" -e "s/\\$SEPARATOR+$//")
     [ -z "$license" ] || break
   done
   [ -n "$license" ] || license='unknown'
@@ -71,6 +85,6 @@ COLUMNS=2000 dpkg -l | grep '^.[iufhwt]' | while read pState package pVer pArch 
     printf "\"$pState\",\"$package\",\"$pVer\",\"$pArch\",\"$pDesc\",\"$license\"\n"
   else
     printf "$format" "$pState" "${package:0:30}" "${pVer:0:30}" "${pArch:0:6}" "${pDesc:0:60}" "$license"
-  fi 
+  fi
 done
 
