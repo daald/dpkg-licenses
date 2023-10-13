@@ -37,19 +37,19 @@ format=$(awk '/^Format:/{print}/^$/{exit}' "$copyrightfile")
 [ -n "$format" ] || exit 0
 
 case "$format" in
-  *'://www.debian.org/doc/packaging-manuals/copyright-format/1.0'*)
+  *'//www.debian.org/doc/packaging-manuals/copyright-format/1.0'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
-  *'http://dep.debian.net/deps/dep5'*)
+  *'//dep.debian.net/deps/dep5'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
-  *'http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?'*)
+  *'//anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
-  *'http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?'*)
+  *'//svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
-  *'http://anonscm.debian.org/loggerhead/dep/dep5/trunk/annotate/179/dep5/copyright-format.xml'*)
+  *'//anonscm.debian.org/loggerhead/dep/dep5/trunk/annotate/179/dep5/copyright-format.xml'*)
     result=$(grep '^License:' "$copyrightfile" | cut -d':' -f2-)
     ;;
   "Format:")  # seen in /usr/share/doc/libpcsclite1/copyright
