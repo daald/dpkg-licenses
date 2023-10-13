@@ -40,6 +40,7 @@ result=$(grep -Ewoi \
     -e '(CCPL|BSD|L?GPL)-[0-9a-z.+-]+( Licenses?)?' \
     -e 'Creative Commons( Licenses?)?' \
     -e 'Public Domain( Licenses?)?' \
+    -e 'GNU General Public( License)?' \
     "$copyrightfile" | sed -r -e 's/[Ll]icence/License/g' | sort -u)
 if [ -n "$result" ]; then
   echo "$result"
